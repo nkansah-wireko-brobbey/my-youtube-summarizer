@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input"
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-6xl font-bold text-center mb-6">Unlock the Power of AI-Driven Insights</h1>
+      <h1 className="text-6xl font-bold text-center mb-6">Youtube Summarizer</h1>
       <div className="w-full max-w-3xl">
         <Input
           type="search"
