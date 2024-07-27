@@ -1,4 +1,5 @@
 import { z } from "zod";
+import Markdown from 'markdown-to-jsx'
 
 export const transcriptSchema = z.object({
   text: z.string(),
@@ -28,7 +29,7 @@ export default function TranscriptList({
         <div key={transcript.offset}>
           <div className="rounded-lg bg-card py-4 shadow-sm mt-4">
             <div className="flex items-center justify-between">
-              <div className="text-lg font-medium">{transcript.text}</div>
+              <div className="text-lg font-medium"><Markdown>{transcript.text}</Markdown></div>
               <div className="text-xs px-2 py-1 rounded-lg bg-primary">
                 {transcript.startTime} - {transcript.endTime}
               </div>
