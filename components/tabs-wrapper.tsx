@@ -15,9 +15,13 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import TranscriptList from "./transcript-list"
+import TranscriptList, { Transcript } from "./transcript-list"
 
-export function TabsWrapper() {
+type Props = {
+    transcriptData?: Transcript[]
+}
+
+export function TabsWrapper({transcriptData}: Props) {
   return (
     <Tabs defaultValue="summary" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -56,7 +60,7 @@ export function TabsWrapper() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2 h-[600px] overflow-y-auto">
-            <TranscriptList />
+            <TranscriptList transcripts={transcriptData} />
           </CardContent>
           <CardFooter>
           </CardFooter>

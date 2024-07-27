@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -30,13 +32,22 @@ const formSchema = z.object({
 
 export function TranscriptForm() {
   // ...
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
+    defaultValues:{
+        url: "",
+    }
   });
 
   const onSubmit = (data: any) => {
     console.log(data);
+    const url = data.url;
+    
+    // router.push(`/transcript?vid=\'${url}\'`)
+    router.push(`/transcript?vid=${encodeURIComponent(url)}`);
+
   };
 
   return (
