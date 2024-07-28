@@ -1,8 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { EyeIcon } from "lucide-react";
-import Image from "next/image";
-import Video from "next-video";
+
 
 type Props = {
   src: string;
