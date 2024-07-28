@@ -10,8 +10,12 @@ export default async function Transcript({
   };
 }) {
   console.log(searchParams);
+  console.log("API URL:");
+  console.log(process.env.API_URL);
+  const url = new URL(`${process.env.API_URL}`);
+  console.log(url);
   const staticData = await fetch(
-    `http://localhost:3000/api/extract-transcript`,
+    url.origin+'/api/extract-transcript',
     {
       cache: "no-cache",
       method: "POST",
