@@ -23,7 +23,8 @@ export default async function Transcript({
   const transcripts = transcriptListSchema.safeParse(data.newTranscripts).data
   console.log("Transcript Page");
     // console.log(transcripts);
-
+    console.log(searchParams.vid);
+console.log(decodeURIComponent( searchParams.vid))
   return (
     <>
       <h1 className="text-4xl font-bold text-center py-5 mb-6">
@@ -31,7 +32,7 @@ export default async function Transcript({
       </h1>
       <div className="flex justify-center gap-5">
         <div>
-          <YoutubeThumbnail />
+          <YoutubeThumbnail src={"https://www.youtube.com/watch?v=mLS6w29iFj4"} />
         </div>
         <div className="w-full max-w-3xl flex-1 h-[800px]">
           <TabsWrapper transcriptData={transcripts} />
