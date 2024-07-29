@@ -1,5 +1,8 @@
 import { TabsWrapper } from "@/components/tabs-wrapper";
-import { transcriptListSchema, transcriptSchema } from "@/components/transcript-list";
+import {
+  transcriptListSchema,
+  transcriptSchema,
+} from "@/components/transcript-list";
 import YoutubeThumbnail from "@/components/youtube-thumbnail";
 
 export default async function Transcript({
@@ -14,31 +17,28 @@ export default async function Transcript({
   console.log(process.env.API_URL);
   const url = new URL(`${process.env.API_URL}`);
   console.log(url);
-  const staticData = await fetch(
-    url.origin+'/api/extract-transcript',
-    {
-      cache: "no-cache",
-      method: "POST",
-      body: JSON.stringify({ url: searchParams.vid }),
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const staticData = await fetch(url.origin + "/api/extract-transcript", {
+    cache: "no-cache",
+    method: "POST",
+    body: JSON.stringify({ url: searchParams.vid }),
+    headers: { "Content-Type": "application/json" },
+  });
   const data = await staticData.json();
-  const transcripts = transcriptListSchema.safeParse(data.newTranscripts).data
+  const transcripts = transcriptListSchema.safeParse(data.newTranscripts).data;
   console.log("Transcript Page");
-    // console.log(transcripts);
-    console.log(searchParams.vid);
-console.log(decodeURIComponent( searchParams.vid))
+  // console.log(transcripts);
+  console.log(searchParams.vid);
+  console.log(decodeURIComponent(searchParams.vid));
   return (
     <>
       <h1 className="text-4xl font-bold text-center py-5 mb-6">
         YouTube<span className="text-primary">.Snap.</span>{" "}
       </h1>
-      <div className="flex justify-center gap-5">
-        <div>
-          <YoutubeThumbnail src={"https://www.youtube.com/watch?v=mLS6w29iFj4"} />
+      <div className="flex flex-col md:flex-row justify-center gap-5 flex-wrap">
+        <div className="w-full md:w-auto">
+          <YoutubeThumbnail src={"https://www.youtube.com/embed/gXuSMjrx_e8"} />
         </div>
-        <div className="w-full max-w-3xl flex-1 h-[800px]">
+        <div className="w-full md:max-w-3xl h-[800px]">
           <TabsWrapper transcriptData={transcripts} />
         </div>
       </div>

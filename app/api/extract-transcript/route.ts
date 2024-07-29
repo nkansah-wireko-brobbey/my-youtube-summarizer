@@ -9,16 +9,26 @@ export async function POST(
   req: Request,
 ) {
 
-  const data = await req.json();
-  // console.log(data);
+  // 
 
-  const url = data.url;
-  console.log(url);
-  const transcript = await getTranscript(data.url);
-  const filteredTranscripts = filterTranscript(transcript as Transcript[]);
-  const mergedTranscripts = mergeTranscript(filteredTranscripts as Transcript[], 5);
-  const newTranscripts = computeDuration(mergedTranscripts as Transcript[]);
-  // console.log(newTranscripts);
+  try{
 
- return NextResponse.json({ message: "data", newTranscripts });
+    const data = await req.json();
+    const url = data.url;
+    console.log(url);
+    const transcript = await getTranscript(data.url);
+    const filteredTranscripts = filterTranscript(transcript as Transcript[]);
+    const mergedTranscripts = mergeTranscript(filteredTranscripts as Transcript[], 5);
+    const newTranscripts = computeDuration(mergedTranscripts as Transcript[]);
+  
+   return NextResponse.json({ message: "data", newTranscripts });
+  }catch(error) {
+    console.error(error);
+    NextResponse.error();
+  }
+
 }
+// handler
+
+
+
