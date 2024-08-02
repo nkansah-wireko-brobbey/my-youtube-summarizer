@@ -5,6 +5,8 @@ export type Transcript = {
   duration: number;
   offset: number;
   lang: string;
+  startTime?: string;
+  endTime?: string;
 };
 
 export const computeDuration = (transcripts: Transcript[]) => {

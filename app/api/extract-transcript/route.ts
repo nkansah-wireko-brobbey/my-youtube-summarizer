@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTranscript } from '../_utils/extracter';
 import { computeDuration, Transcript } from '../_utils/computeDuration';
-import { filterTranscript } from '../_utils/filterTranscript';
-import { mergeTranscript } from '../_utils/mergeTranscript';
+
+import { extracterTranscriptController } from '../_controller.ts/extracter-transcript-controller';
 
  
 export async function POST(
@@ -14,21 +13,34 @@ export async function POST(
   try{
 
     const data = await req.json();
+
     const url = data.url;
+
     console.log(url);
-    const transcript = await getTranscript(data.url);
-    const filteredTranscripts = filterTranscript(transcript as Transcript[]);
-    const mergedTranscripts = mergeTranscript(filteredTranscripts as Transcript[], 5);
-    const newTranscripts = computeDuration(mergedTranscripts as Transcript[]);
+    
+    if (!url) {
+      return NextResponse.error()
+    }
+    
+    const transcript = await extracterTranscriptController(url);
+
+    
+    if (!transcript) {
+      return NextResponse.error();
+    }
+
+    const  transcriptLength = (typeof transcript  === 'object') ? (transcript as Transcript[]).length : 0;
   
-   return NextResponse.json({ message: "data", newTranscripts });
+   return NextResponse.json({ message: "data", newTranscripts: transcript , transcriptLength });
+
   }catch(error) {
+
     console.error(error);
-    NextResponse.error();
+
+    return NextResponse.error();
   }
 
 }
-// handler
 
 
 

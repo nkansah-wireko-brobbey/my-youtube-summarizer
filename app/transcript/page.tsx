@@ -26,6 +26,7 @@ export default async function Transcript({
   const data = await staticData.json();
   const transcripts = transcriptListSchema.safeParse(data.newTranscripts).data;
   console.log("Transcript Page");
+  console.log(transcripts?.at(0));
   // console.log(transcripts);
   console.log(searchParams.vid);
   console.log(decodeURIComponent(searchParams.vid));

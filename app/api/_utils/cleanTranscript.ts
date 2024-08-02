@@ -14,6 +14,6 @@ export function cleanText(text: string) {
     // console.log("Cleaned Text");
     // console.log(cleanedText);
   
-    return (text);
+    return text;
     // return he.decode(text);
   }
