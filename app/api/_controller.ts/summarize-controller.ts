@@ -1,4 +1,4 @@
-import { getChunks } from "../_ai/getChunks";
+// import { getChunks } from "../_ai/getChunks";
 import { Transcript } from "../_utils/computeDuration";
 import { extracterTranscriptController } from "./extracter-transcript-controller";
 
@@ -12,9 +12,9 @@ export const summarizeController = async (url: string) => {
 
         const transcriptScript = transcript.map((transcript: Transcript) => transcript.text).join(" ");
 
-        const chunks = await getChunks(transcriptScript);
+        // const chunks = await getChunks(transcriptScript);
 
-        return chunks;
+        return transcriptScript;
 
     } catch (error) {
         console.error(error);

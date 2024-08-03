@@ -1,9 +1,10 @@
 import { generateText } from "ai";
 
-export const queryModel = async (model: any, prompt: string) => {
+export const queryModel = async (model: any, system: string, prompt: string) => {
   const response = await generateText({
-    model: model,
-    prompt: prompt,
+    model,
+    system,
+    prompt,
   });
 
   return response;

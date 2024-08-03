@@ -37,7 +37,7 @@ export default async function Transcript({
       </h1>
       <div className="flex flex-col md:flex-row justify-center gap-5 flex-wrap">
         <div className="w-full md:w-auto">
-          <YoutubeThumbnail src={"https://www.youtube.com/embed/gXuSMjrx_e8"} />
+          <YoutubeThumbnail src={"https://www.youtube.com/gXuSMjrx_e8"} />
         </div>
         <div className="w-full md:max-w-3xl h-[800px]">
           <TabsWrapper transcriptData={transcripts} />
