@@ -12,24 +12,47 @@ export default async function Transcript({
     vid: string;
   };
 }) {
-  console.log(searchParams);
-  console.log("API URL:");
-  console.log(process.env.API_URL);
+
+  let transcriptsResponse:any[] = [];
+
   const url = new URL(`${process.env.API_URL}`);
-  console.log(url);
-  const staticData = await fetch(url.origin + "/api/extract-transcript", {
-    cache: "no-cache",
-    method: "POST",
-    body: JSON.stringify({ url: searchParams.vid }),
-    headers: { "Content-Type": "application/json" },
-  });
-  const data = await staticData.json();
-  const transcripts = transcriptListSchema.safeParse(data.newTranscripts).data;
-  console.log("Transcript Page");
-  console.log(transcripts?.at(0));
-  // console.log(transcripts);
-  console.log(searchParams.vid);
-  console.log(decodeURIComponent(searchParams.vid));
+  try{
+    const staticData = await fetch(url.origin + "/api/extract-transcript", {
+      cache: "no-cache",
+      method: "POST",
+      body: JSON.stringify({ url: searchParams.vid }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await staticData.json();
+    transcriptsResponse = transcriptListSchema.safeParse(data.newTranscripts).data!;
+
+  }catch(error){
+    console.error(error);
+  }
+
+  const transcripts = transcriptsResponse.map((transcript) =>(transcript));
+
+  let summaryData = "";
+
+  try {
+    
+    const staticSummarizedData = await fetch(url.origin + "/api/summarize", {
+      cache: "no-cache",
+      method: "POST",
+      body: JSON.stringify({ url: searchParams.vid }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const summaryJsonData = await staticSummarizedData.json();
+    summaryData = summaryJsonData.response.text
+  
+    console.log(summaryJsonData);
+
+  } catch (error) {
+    console.error(error); 
+  }
+
+  const summary = summaryData;
+
   return (
     <>
       <h1 className="text-4xl font-bold text-center py-5 mb-6">
@@ -40,7 +63,7 @@ export default async function Transcript({
           <YoutubeThumbnail src={"https://www.youtube.com/gXuSMjrx_e8"} />
         </div>
         <div className="w-full md:max-w-3xl h-[800px]">
-          <TabsWrapper transcriptData={transcripts} />
+          <TabsWrapper transcriptData={transcripts} summaryData={summary} />
         </div>
       </div>
     </>

@@ -16,12 +16,14 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import TranscriptList, { Transcript } from "./transcript-list"
+import { MarkdownConverter } from "./markdown-converter"
 
 type Props = {
-    transcriptData?: Transcript[]
+    transcriptData?: Transcript[],
+    summaryData?: string
 }
 
-export function TabsWrapper({transcriptData}: Props) {
+export function TabsWrapper({transcriptData, summaryData}: Props) {
   return (
     <Tabs defaultValue="summary" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -33,22 +35,13 @@ export function TabsWrapper({transcriptData}: Props) {
           <CardHeader>
             <CardTitle>Summary</CardTitle>
             <CardDescription>
-              {"Make changes to your account here. Click save when you're done."}
+              
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
-            </div>
+          <CardContent className="space-y-2 h-[600px] overflow-y-auto">
+            <MarkdownConverter text={summaryData!}/>
           </CardContent>
-          <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter>
+       
         </Card>
       </TabsContent>
       <TabsContent value="detailed" className="h-full">
